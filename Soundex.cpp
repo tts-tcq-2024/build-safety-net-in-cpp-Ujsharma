@@ -27,7 +27,7 @@ std::string generateSoundex(const std::string& name) {
         }
     }
 
-    while (soundex.length() < 4) {
+    if (soundex.length() < 4) {
         soundex += '0';
     }
 
