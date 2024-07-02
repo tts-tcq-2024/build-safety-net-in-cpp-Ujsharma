@@ -1,18 +1,16 @@
 #include "Soundex.h"
 #include <cctype>
+#include<string>
 
 char getSoundexCode(char c) {
-    c = toupper(c);
-    switch (c) {
-        case 'B': case 'F': case 'P': case 'V': return '1';
-        case 'C': case 'G': case 'J': case 'K': case 'Q': case 'S': case 'X': case 'Z': return '2';
-        case 'D': case 'T': return '3';
-        case 'L': return '4';
-        case 'M': case 'N': return '5';
-        case 'R': return '6';
-        default: return '0'; // For A, E, I, O, U, H, W, Y
-    }
-}
+    c = std::toupper(c);
+    if (c=="B"||c=="F"||c=="P"||c=="V") return "1";
+    if (c=="C"||c=="G"||c=="J"||c=="K"||c=="Q"||c=="S"||c=="X"||c=="Z") return "2";
+    if (c=="D"||c=="T") return "3";
+    if (c=="L") return "4";
+    if (c=="M"||c=="N") return "5";
+    if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U' || c == 'H' || c == 'W' || c == 'Y') return '0';
+    return '0';}
 
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
