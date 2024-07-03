@@ -1,36 +1,49 @@
-#include "Soundex.h"
+#include <iostream>
+#include <string>
 #include <cctype>
-#include<string>
 
-char getSoundexCode(char c) {
-    c = toupper(c);
-    if (c == 'B' || c == 'F' || c == 'P' || c == 'V') {
-        return '1';
-    } else if (c == 'C' || c == 'G' || c == 'J' || c == 'K' || c == 'Q' || c == 'S' || c == 'X' || c == 'Z') {
-        return '2';
-    } else if (c == 'D' || c == 'T') {
-        return '3';
-    } else if (c == 'L') {
-        return '4';
-    } else if (c == 'M' || c == 'N') {
-        return '5';
-    } else if (c == 'R') {
-        return '6';
-    } else {
-        return '0'; // For A, E, I, O, U, H, W, Y and any other characters
-    }
+// Function to convert a character to uppercase
+char toUpper(char c) {
+    return std::toupper(static_cast<unsigned char>(c));
 }
 
+// Function to map a character to its Soundex code
+char mapToSoundexCode(char c, bool isConsonant) {
+    c = toUpper(c);
+    if (isConsonant) {
+        if (c == 'B' || c == 'F' || c == 'P' || c == 'V') {
+            return '1';
+        } else if (c == 'C' || c == 'G' || c == 'J' || c == 'K' || c == 'Q' || c == 'S' || c == 'X' || c == 'Z') {
+            return '2';
+        } else if (c == 'D' || c == 'T') {
+            return '3';
+        } else if (c == 'L') {
+            return '4';
+        } else if (c == 'M' || c == 'N') {
+            return '5';
+        } else if (c == 'R') {
+            return '6';
+        }
+    }
+    return '0'; // For vowels and other characters
+}
+
+// Function to determine if a character is a consonant
+bool isConsonant(char c) {
+    c = toUpper(c);
+    return (c >= 'A' && c <= 'Z' && !std::strchr("AEIOUHWY", c));
+}
+
+// Function to generate Soundex code for a given name
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
-    std::string soundex; // Initialize soundex as an empty string
-    char prevCode = '\0'; // Initialize prevCode with null character (assuming prevCode is a char variable)
-    size_t i = 1; // Initialize index i with 1
+    std::string soundex;
+    char prevCode = '\0';
 
-    while (i < name.length()) {
-        char code = getSoundexCode(name[i]);
-
+    for (size_t i = 0; i < name.length(); ++i) {
+        char code = mapToSoundexCode(name[i], isConsonant(name[i]));
+        
         if (soundex.length() < 4) {
             if (code != '0' && code != prevCode) {
                 soundex += code;
@@ -40,11 +53,8 @@ std::string generateSoundex(const std::string& name) {
                 soundex += '0';
             }
         }
-        
-        i++; // Move to the next character in name
     }
 
-    // Pad soundex with zeros if its length is less than 4
     while (soundex.length() < 4) {
         soundex += '0';
     }
@@ -52,7 +62,10 @@ std::string generateSoundex(const std::string& name) {
     return soundex;
 }
 
-
-
+int main() {
+    std::string name = "Johnson";
+    std::string soundex = generateSoundex(name);
+    std::cout << "Soundex code for " << name << " is: " << soundex << std::endl;
     
-    
+    return 0;
+}
