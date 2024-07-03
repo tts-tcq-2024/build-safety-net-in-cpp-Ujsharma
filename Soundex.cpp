@@ -29,18 +29,19 @@ std::string generateSoundexCodes(const std::string& name) {
     for (char c : name) {
         char code = getSoundexCode(c);
 
-        // Ensure soundex length does not exceed 4 characters
         if (soundex.length() >= 4) {
-            continue; // Skip further processing if soundex is already 4 characters
+            break; // Exit loop if soundex is already 4 characters long
         }
 
         if (code != '0' && code != prevCode) {
             soundex += code;
             prevCode = code;
-        } else {
+        } else if (soundex.empty() || soundex.back() != '0') {
             soundex += '0'; // Pad with '0' for non-matching or duplicate codes
         }
     }
+
+    soundex.resize(4, '0'); // Ensure soundex is exactly 4 characters long
 
     return soundex;
 }
