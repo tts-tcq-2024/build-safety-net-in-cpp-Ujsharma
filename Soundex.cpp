@@ -24,7 +24,7 @@ char getSoundexCode(char c) {
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
-   size_t i = 1
+size_t i = 1;
 if (i < name.length()){
     char code = getSoundexCode(name[i]);
     if (soundex.length() < 4){
@@ -33,7 +33,7 @@ if (i < name.length()){
              prevCode = code;}
     else {soundex += '0';}
 return soundex;}
-}
+}}
 
 
     
