@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <cstring> // Include for strchr function
 
 // Function to convert a character to uppercase
 char toUpper(char c) {
@@ -31,7 +32,7 @@ char mapToSoundexCode(char c, bool isConsonant) {
 // Function to determine if a character is a consonant
 bool isConsonant(char c) {
     c = toUpper(c);
-    return (c >= 'A' && c <= 'Z' && !std::strchr("AEIOUHWY", c));
+    return (c >= 'A' && c <= 'Z' && strchr("AEIOUHWY", c) == nullptr); // Use strchr in global namespace
 }
 
 // Function to generate Soundex code for a given name
