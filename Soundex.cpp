@@ -26,7 +26,6 @@ std::string generateSoundexCodes(const std::string& name) {
     std::string soundex;
     char prevCode = '\0';
 
-    for (char c : name) {
         char code = getSoundexCode(c);
 
         if (soundex.length() < 4) {
@@ -39,7 +38,6 @@ std::string generateSoundexCodes(const std::string& name) {
         } else {
             break; 
         }
-    }
 
     return soundex;
 }
