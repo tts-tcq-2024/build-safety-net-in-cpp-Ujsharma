@@ -29,21 +29,19 @@ std::string generateSoundexCodes(const std::string& name) {
     for (char c : name) {
         char code = getSoundexCode(c);
 
-        if (soundex.length() >= 4) {
+        if (soundex.length() < 4) {
+            if (code != '0' && code != prevCode) {
+                soundex += code;
+                prevCode = code;
+            } else if (soundex.empty() || soundex.back() != '0') {
+                soundex += '0';
+            }
+        } else {
             break; // Exit loop if soundex is already 4 characters long
-        }
-
-        if (code != '0' && code != prevCode) {
-            soundex += code;
-            prevCode = code;
-        } else if (soundex.empty() || soundex.back() != '0') {
-            soundex += '0'; // Pad with '0' for non-matching or duplicate codes
         }
     }
 
-    soundex.resize(4, '0'); // Ensure soundex is exactly 4 characters long
-
-    return soundex;
+    return padSoundex(soundex);
 }
 
 std::string padSoundex(const std::string& soundex) {
@@ -52,9 +50,3 @@ std::string padSoundex(const std::string& soundex) {
     return paddedSoundex;
 }
 
-std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "0000"; // Return early for empty strings
-
-    std::string soundex = generateSoundexCodes(name);
-    return padSoundex(soundex);
-}
