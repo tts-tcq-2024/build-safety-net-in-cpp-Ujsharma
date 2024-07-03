@@ -22,22 +22,28 @@ char getSoundexCode(char c) {
     return '0'; // Default case
 }
 
-std::string generateSoundexCodes(const std::string& name) {
-    std::string soundex;
-    char prevCode = '\0';
+bool SoundexLengthandCodeCheck(const std::string& soundex, char code, char prevCode) {
+    return soundex.length() < 4 && (code != '0' && code != prevCode);
+}
 
-        char code = getSoundexCode(c);
 
-        if (soundex.length() < 4) {
-            if (code != '0' && code != prevCode) {
-                soundex += code;
-                prevCode = code;
-            } else if (soundex.empty() || soundex.back() != '0') {
-                soundex += '0';
-            }
-        } else {
-            break; 
+std::string generateSoundex(const std::string& name) {
+    if (name.empty()) return "";
+
+    std::string soundex(1, toupper(name[0]));
+    char prevCode = getSoundexCode(name[0]);
+
+    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
+        char code = getSoundexCode(name[i]);
+        if (code != '0' && code != prevCode) {
+            soundex += code;
+            prevCode = code;
         }
+    }
+
+    while (soundex.length() < 4) {
+        soundex += '0';
+    }
 
     return soundex;
 }
@@ -48,10 +54,10 @@ std::string padSoundex(const std::string& soundex) {
     return paddedSoundex;
 }
 
-std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "0000"; // Return early for empty strings
+std::string soundexcodeIncrement(const std::string& soundex, char prevCode){
+if (SoundexLengthandCodeCheck(soundex,code,prevCode)){
+soundex += code;
+prevCode = code;}
 
-    std::string soundex = generateSoundexCodes(name);
-    return padSoundex(soundex);
-}
+
 
