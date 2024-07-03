@@ -22,9 +22,7 @@ char getSoundexCode(char c) {
     return '0'; // Default case
 }
 
-std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "0000"; // Return early for empty strings
-
+std::string generateSoundexCodes(const std::string& name) {
     std::string soundex;
     char prevCode = '\0';
 
@@ -44,8 +42,18 @@ std::string generateSoundex(const std::string& name) {
         }
     }
 
-    // Pad with '0' if soundex is less than 4 characters
-    soundex.resize(4, '0');
-
     return soundex;
+}
+
+std::string padSoundex(const std::string& soundex) {
+    std::string paddedSoundex = soundex;
+    paddedSoundex.resize(4, '0'); // Pad with '0' if soundex is less than 4 characters
+    return paddedSoundex;
+}
+
+std::string generateSoundex(const std::string& name) {
+    if (name.empty()) return "0000"; // Return early for empty strings
+
+    std::string soundex = generateSoundexCodes(name);
+    return padSoundex(soundex);
 }
