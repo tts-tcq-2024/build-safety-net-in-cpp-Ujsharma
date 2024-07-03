@@ -24,16 +24,34 @@ char getSoundexCode(char c) {
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
-size_t i = 1;std::string soundex;char prevCode = '\0'; 
-if (i < name.length()){
-    char code = getSoundexCode(name[i]);
-    if (soundex.length() < 4){
-          if (code != '0' && code != prevCode) {
-             soundex += code;
-             prevCode = code;}
-    else {soundex += '0';}
-return soundex;}
-}}
+    std::string soundex; // Initialize soundex as an empty string
+    char prevCode = '\0'; // Initialize prevCode with null character (assuming prevCode is a char variable)
+    size_t i = 1; // Initialize index i with 1
+
+    while (i < name.length()) {
+        char code = getSoundexCode(name[i]);
+
+        if (soundex.length() < 4) {
+            if (code != '0' && code != prevCode) {
+                soundex += code;
+                prevCode = code;
+            }
+            else {
+                soundex += '0';
+            }
+        }
+        
+        i++; // Move to the next character in name
+    }
+
+    // Pad soundex with zeros if its length is less than 4
+    while (soundex.length() < 4) {
+        soundex += '0';
+    }
+
+    return soundex;
+}
+
 
 
     
