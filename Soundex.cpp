@@ -32,20 +32,20 @@ std::string generateSoundex(const std::string& name) {
         char code = getSoundexCode(c);
 
         // Ensure soundex length does not exceed 4 characters
-        if (soundex.length() < 4) {
-            if (code != '0' && code != prevCode) {
-                soundex += code;
-                prevCode = code;
-            } else {
-                soundex += '0'; // Pad with '0' for non-matching or duplicate codes
-            }
+        if (soundex.length() >= 4) {
+            continue; // Skip further processing if soundex is already 4 characters
+        }
+
+        if (code != '0' && code != prevCode) {
+            soundex += code;
+            prevCode = code;
+        } else {
+            soundex += '0'; // Pad with '0' for non-matching or duplicate codes
         }
     }
 
     // Pad with '0' if soundex is less than 4 characters
-    while (soundex.length() < 4) {
-        soundex += '0';
-    }
+    soundex.resize(4, '0');
 
     return soundex;
 }
