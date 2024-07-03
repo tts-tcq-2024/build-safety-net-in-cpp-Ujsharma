@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Soundex.h"
 #include <string>
 #include <cctype>
 #include <cstring> // Include for strchr function
@@ -9,7 +10,7 @@ char toUpper(char c) {
 }
 
 // Function to map a character to its Soundex code
-char mapToSoundexCode(char c, bool isConsonant) {
+char getSoundexCode(char c, bool isConsonant) {
     c = toUpper(c);
     if (isConsonant) {
         if (c == 'B' || c == 'F' || c == 'P' || c == 'V') {
