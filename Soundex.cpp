@@ -23,15 +23,13 @@ char getSoundexCode(char c) {
 }
 
 std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "";
+    if (name.empty()) return "0000"; // Return early for empty strings
 
     std::string soundex;
     char prevCode = '\0';
-    size_t i = 0;
 
-    // Iterate over each character of the name
-    if (i < name.length()) {
-        char code = getSoundexCode(name[i]);
+    for (char c : name) {
+        char code = getSoundexCode(c);
 
         // Ensure soundex length does not exceed 4 characters
         if (soundex.length() < 4) {
@@ -42,13 +40,12 @@ std::string generateSoundex(const std::string& name) {
                 soundex += '0'; // Pad with '0' for non-matching or duplicate codes
             }
         }
-
-        ++i; // Move to the next character
     }
 
     // Pad with '0' if soundex is less than 4 characters
     while (soundex.length() < 4) {
         soundex += '0';
     }
+
     return soundex;
 }
