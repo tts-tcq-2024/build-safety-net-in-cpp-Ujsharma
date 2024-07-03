@@ -37,16 +37,23 @@ std::string generateSoundexCodes(const std::string& name) {
                 soundex += '0';
             }
         } else {
-            break; // Exit loop if soundex is already 4 characters long
+            break; 
         }
     }
 
-    return padSoundex(soundex);
+    return soundex;
 }
 
 std::string padSoundex(const std::string& soundex) {
     std::string paddedSoundex = soundex;
     paddedSoundex.resize(4, '0'); // Pad with '0' if soundex is less than 4 characters
     return paddedSoundex;
+}
+
+std::string generateSoundex(const std::string& name) {
+    if (name.empty()) return "0000"; // Return early for empty strings
+
+    std::string soundex = generateSoundexCodes(name);
+    return padSoundex(soundex);
 }
 
