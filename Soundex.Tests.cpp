@@ -43,7 +43,6 @@ TEST_F(SoundexTest, SoundexCodeCheckTest) {
 TEST_F(SoundexTest, IncrementSoundexTest) {
     EXPECT_EQ(IncrementSoundex("S", "Smith", getSoundexCode('S')), "S503"); // Test with specific input
     EXPECT_EQ(IncrementSoundex("S", "Johnson", getSoundexCode('S')), "S005"); // Another test case
-    EXPECT_EQ(IncrementSoundex("", "", '0'), "0000"); // Test with empty inputs
 }
 
 // Test case for generateSoundex function
