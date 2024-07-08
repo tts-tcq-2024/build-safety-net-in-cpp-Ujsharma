@@ -1,4 +1,4 @@
-#include "Soundex.hpp"
+#include "Soundex.h"
 #include <gtest/gtest.h>
 
 // Test fixture for Soundex functions
