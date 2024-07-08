@@ -31,7 +31,7 @@ bool SoundexCodeCheck(char code, char prevCode) {
     return (code != '0' && code != prevCode);
 }
 
-std::string updateSoundex(const std::string& soundex, const std::string& name, char prevCode) {
+std::string IncrementSoundex(const std::string& soundex, const std::string& name, char prevCode) {
     for (char c : name.substr(1)) {
         char code = getSoundexCode(c);
         if (code != '0' && SoundexCodeCheck(code, prevCode)) {
