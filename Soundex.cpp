@@ -31,13 +31,7 @@ bool SoundexCodeCheck(char code, char prevCode) {
     return (code != '0' && code != prevCode);
 }
 
-std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "";
-
-    std::string soundex;
-    soundex += std::toupper(name[0]);
-    char prevCode = getSoundexCode(name[0]);
-
+std::string updateSoundex(const std::string& soundex, const std::string& name, char prevCode) {
     for (char c : name.substr(1)) {
         char code = getSoundexCode(c);
         if (code != '0' && SoundexCodeCheck(code, prevCode)) {
@@ -52,6 +46,17 @@ std::string generateSoundex(const std::string& name) {
     soundex += std::string(4 - soundex.length(), '0'); // Pad with '0' if soundex is less than 4 characters
     return soundex.substr(0, 4); // Ensure the result is exactly 4 characters long
 }
+    
+
+std::string generateSoundex(const std::string& name) {
+    if (name.empty()) return "";
+
+    std::string soundex;
+    soundex += std::toupper(name[0]);
+    char prevCode = getSoundexCode(name[0]);
+    return updateSoundex(soundex, name, prevCode);}
+
+    
 
 std::string padSoundex(const std::string& soundex) {
     std::string paddedSoundex = soundex;
