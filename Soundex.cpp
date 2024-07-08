@@ -32,23 +32,21 @@ bool SoundexCodeCheck(char code, char prevCode) {
 }
 
 std::string IncrementSoundex(const std::string& soundex, const std::string& name, char prevCode) {
-    std::string result = soundex;
-    size_t length = result.length();
+    std::string result = soundex.substr(0, 1); // Start with the first character of soundex
+    size_t length = 1;
 
     for (char c : name.substr(1)) {
+        if (length >= 4) break; // Exit early if result already has 4 characters
+
         char code = getSoundexCode(c);
-        
-        if (length < 4) {
-            if (code != '0' && SoundexCodeCheck(code, prevCode)) {
-                result += code;
-                prevCode = code;
-                length++;
-            } else {
-                result += '0';
-                length++;
-            }
+
+        if (code != '0' && SoundexCodeCheck(code, prevCode)) {
+            result += code;
+            prevCode = code;
+            length++;
         } else {
-            break; // Break if result reaches 4 characters
+            result += '0';
+            length++;
         }
     }
 
