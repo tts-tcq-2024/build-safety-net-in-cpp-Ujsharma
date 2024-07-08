@@ -37,50 +37,20 @@ void appendChar(std::string& result, char code, char& prevCode, size_t& length) 
     length++;
 }
 
-#include "Soundex.h"
-#include <string>
-
-#include "Soundex.h"
-#include <string>
-
 std::string IncrementSoundex(const std::string& soundex, const std::string& name, char prevCode) {
-    std::string result;
+    std::string result = soundex.substr(0, 1); // Initialize result with the first character of soundex
+    size_t length = 1;
 
-    // Initialize result with the first character of soundex, if not empty
-    if (!soundex.empty()) {
-        result = soundex.substr(0, 1);
-    }
-
-    size_t length = result.length();
-
-    // Process each character in name
-    for (char c : name) {
+    for (char c : name.substr(1)) {
         if (length >= 4) break; // Exit early if result already has 4 characters
 
         char code = getSoundexCode(c);
-        if (code != '0' && SoundexCodeCheck(code, prevCode)) {
-            result += code;
-            prevCode = code;
-            length++;
-        } else {
-            result += '0';
-        }
+        appendChar(result, code, prevCode, length);
     }
 
-    // Pad with '0' if result is less than 4 characters
-    result.append(4 - result.length(), '0');
-
+    result.append(4 - result.length(), '0'); // Pad with '0' if result is less than 4 characters
     return result.substr(0, 4); // Ensure the result is exactly 4 characters long
 }
-
-
-
-    // Pad with '0' if result is less than 4 characters
-    result.append(4 - result.length(), '0');
-    return result.substr(0, 4); // Ensure the result is exactly 4 characters long
-}
-
-
 
 
 
