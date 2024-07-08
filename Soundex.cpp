@@ -1,6 +1,5 @@
-#include "Soundex.h"
 #include <cctype>
-#include<string>
+#include <string>
 #include <unordered_map>
 
 char getSoundexCode(char c) {
@@ -26,27 +25,30 @@ bool SoundexLengthCheck(const std::string& soundex) {
     return soundex.length() < 4;
 }
 
-bool SoundexCodeCheck(const char code, char prevCode) {
+bool SoundexCodeCheck(char code, char prevCode) {
     return (code != '0' && code != prevCode);
 }
 
-std::string SoundexIncrement(const std::string& soundex, char code, char prevCode) {
-    size_t i = 1;
-if (SoundexLengthCheck==true){
-    char code = getSoundexCode(name[i]);}
-    if(SoundexCodeCheck(code, prevCode)==true){
-        i++;
-        soundex += code;
-        prevCode = code;}
-else {soundex += '0';}}
-    
+void SoundexIncrement(std::string& soundex, char code, char& prevCode) {
+    for (size_t i = 1; i < soundex.length(); ++i) {
+        code = getSoundexCode(soundex[i]);
+        if (SoundexCodeCheck(code, prevCode)) {
+            soundex += code;
+            prevCode = code;
+        } else {
+            soundex += '0';
+        }
+    }
+}
+
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
-    std::string soundex(1, toupper(name[0]));
+    std::string soundex(1, std::toupper(name[0]));
     char prevCode = getSoundexCode(name[0]);
-    SoundexIncrement(soundex,code,prevCode);
-    return soundex;
+    SoundexIncrement(soundex, prevCode, prevCode);
+
+    return padSoundex(soundex);
 }
 
 std::string padSoundex(const std::string& soundex) {
@@ -54,6 +56,3 @@ std::string padSoundex(const std::string& soundex) {
     paddedSoundex.resize(4, '0'); // Pad with '0' if soundex is less than 4 characters
     return paddedSoundex;
 }
-
-
-
