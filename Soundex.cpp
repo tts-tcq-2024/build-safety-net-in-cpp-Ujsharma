@@ -33,12 +33,6 @@ bool SoundexCodeCheck(char code, char prevCode) {
 std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
-    std::string soundex(1, std::toupper(name[0]));
-    char prevCode = getSoundexCode(name[0]);
-
-    std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "";
-
     std::string soundex;
     soundex += std::toupper(name[0]);
     char prevCode = getSoundexCode(name[0]);
