@@ -54,7 +54,7 @@ std::string generateSoundex(const std::string& name) {
     std::string soundex;
     soundex += std::toupper(name[0]);
     char prevCode = getSoundexCode(name[0]);
-    return updateSoundex(soundex, name, prevCode);}
+    return IncrementSoundex(soundex, name, prevCode);}
 
     
 
