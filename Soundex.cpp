@@ -37,7 +37,7 @@ std::string generateSoundex(const std::string& name) {
     soundex += std::toupper(name[0]);
     char prevCode = getSoundexCode(name[0]);
 
-    auto appendSoundexCode = [&](char c) {
+    for (char c : name.substr(1)) {
         char code = getSoundexCode(c);
         if (code != '0' && SoundexCodeCheck(code, prevCode)) {
             soundex += code;
@@ -45,13 +45,13 @@ std::string generateSoundex(const std::string& name) {
         } else {
             soundex += '0';
         }
-    };
-
-    std::for_each(name.begin() + 1, name.end(), appendSoundexCode);
+        if (soundex.length() >= 4) break; // Break if soundex reaches 4 characters
+    }
 
     soundex += std::string(4 - soundex.length(), '0'); // Pad with '0' if soundex is less than 4 characters
     return soundex.substr(0, 4); // Ensure the result is exactly 4 characters long
 }
+
 
 
 
