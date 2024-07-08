@@ -8,5 +8,5 @@ bool SoundexLengthCheck(const std::string& soundex);
 bool SoundexCodeCheck(char code, char prevCode);
 std::string generateSoundex(const std::string& name);
 std::string padSoundex(const std::string& soundex);
-
+std::string IncrementSoundex(const std::string& soundex, const std::string& name, char prevCode);
 #endif // SOUNDEX_H
