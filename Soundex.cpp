@@ -38,12 +38,8 @@ void appendChar(std::string& result, char code, char& prevCode, size_t& length) 
 }
 
 std::string IncrementSoundex(const std::string& soundex, const std::string& name, char prevCode) {
-    std::string result;
-
     // Initialize result with the first character of soundex, if not empty
-    if (!soundex.empty()) {
-        result = soundex.substr(0, 1);
-    }
+    std::string result = (!soundex.empty()) ? soundex.substr(0, 1) : "";
 
     size_t length = result.length();
 
@@ -54,6 +50,12 @@ std::string IncrementSoundex(const std::string& soundex, const std::string& name
         char code = getSoundexCode(c);
         appendChar(result, code, prevCode, length);
     }
+
+    // Pad with '0' if result is less than 4 characters
+    result.append(4 - result.length(), '0');
+    return result.substr(0, 4); // Ensure the result is exactly 4 characters long
+}
+
 
     // Pad with '0' if result is less than 4 characters
     result.append(4 - result.length(), '0');
