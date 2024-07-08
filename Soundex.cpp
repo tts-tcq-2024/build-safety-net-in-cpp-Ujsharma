@@ -1,19 +1,23 @@
 #include "Soundex.h"
+#include <unordered_map>
+#include <cctype>
 
-const std::unordered_map<char, char> soundexMap {
-    {'B', '1'}, {'F', '1'}, {'P', '1'}, {'V', '1'},
-    {'C', '2'}, {'G', '2'}, {'J', '2'}, {'K', '2'},
-    {'Q', '2'}, {'S', '2'}, {'X', '2'}, {'Z', '2'},
-    {'D', '3'}, {'T', '3'},
-    {'L', '4'},
-    {'M', '5'}, {'N', '5'},
-    {'R', '6'}
-};
+namespace SoundexMap {
+    static const std::unordered_map<char, char> soundexMap {
+        {'B', '1'}, {'F', '1'}, {'P', '1'}, {'V', '1'},
+        {'C', '2'}, {'G', '2'}, {'J', '2'}, {'K', '2'},
+        {'Q', '2'}, {'S', '2'}, {'X', '2'}, {'Z', '2'},
+        {'D', '3'}, {'T', '3'},
+        {'L', '4'},
+        {'M', '5'}, {'N', '5'},
+        {'R', '6'}
+    };
+}
 
 char getSoundexCode(char c) {
     c = std::toupper(c);
-    auto it = soundexMap.find(c);
-    if (it != soundexMap.end()) {
+    auto it = SoundexMap::soundexMap.find(c);
+    if (it != SoundexMap::soundexMap.end()) {
         return it->second;
     }
     return '0'; // Default case
